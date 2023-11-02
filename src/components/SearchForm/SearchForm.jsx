@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const SearchForm = ({ searchName, updateQueryString }) => {
   const [query, setQuery] = useState('');
@@ -32,3 +33,8 @@ const SearchForm = ({ searchName, updateQueryString }) => {
 };
 
 export default SearchForm;
+
+SearchForm.propTypes = {
+  searchName: PropTypes.string.isRequired,
+  updateQueryString: PropTypes.func.isRequired,
+};

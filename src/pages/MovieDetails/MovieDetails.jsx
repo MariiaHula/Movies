@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { Suspense, useRef } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from '../../servises/AxiosAPI';
 import Loader from 'components/Loader/Loader';
@@ -67,7 +67,10 @@ const MovieDetails = () => {
           <AdditionalInfoItem to="reviews">Reviews</AdditionalInfoItem>
         </ul>
         <hr />
-        <Outlet />
+
+        <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense>
       </AdditionalInfo>
     </MovieDetailsContainer>
   );

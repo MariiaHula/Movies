@@ -10,7 +10,6 @@ export const useHttp = (fn, param) => {
       try {
         setLoading(true);
         const data = await fn(param);
-        console.log(data);
         setData(data);
       } catch (error) {
         setError(error.message);
