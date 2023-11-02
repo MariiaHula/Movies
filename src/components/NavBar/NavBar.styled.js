@@ -6,6 +6,8 @@ export const StyleWrapper = styled.nav`
   gap: 20px;
 `;
 export const StyledLink = styled(NavLink)`
+  font-weight: 700;
+  font-size: 26px;
   text-decoration: none;
   color: black;
 

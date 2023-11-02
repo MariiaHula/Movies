@@ -7,6 +7,7 @@ import {
   AdditionalInfoItem,
   GenreItem,
   GenresList,
+  GenresTitle,
   MovieDetailsContainer,
   MovieInfo,
   MovieInfo1,
@@ -15,6 +16,7 @@ import {
   MovieTitle,
 } from './MovieDtails.styled';
 import { useHttp } from 'hook/useHttp';
+import { Button } from 'components/SearchForm/SearchForm.styled';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -33,7 +35,7 @@ const MovieDetails = () => {
   return (
     <MovieDetailsContainer>
       <Link to={goBackRef.current}>
-        <button type="button">Go back</button>
+        <Button type="button">Go back</Button>
       </Link>
       <MovieInfo>
         <MoviePoster
@@ -49,9 +51,9 @@ const MovieDetails = () => {
             {title}: ({release_date?.slice(0, 4)})
           </MovieTitle>
           <p>User score: {(popularity / 100)?.toFixed(0)}%</p>
-          <h2>Overview</h2>
+          <GenresTitle>Overview</GenresTitle>
           <MovieOverview>{overview}</MovieOverview>
-          <h2>Genres</h2>
+          <GenresTitle>Genres</GenresTitle>
           <GenresList>
             {genres?.map(genre => (
               <GenreItem key={genre.id}>{genre.name}</GenreItem>
@@ -59,14 +61,13 @@ const MovieDetails = () => {
           </GenresList>
         </MovieInfo1>
       </MovieInfo>
-      <hr />
+
       <AdditionalInfo>
-        <h3>Additional information</h3>
+        <GenresTitle>Additional information</GenresTitle>
         <ul>
           <AdditionalInfoItem to="cast">Cast</AdditionalInfoItem>
           <AdditionalInfoItem to="reviews">Reviews</AdditionalInfoItem>
         </ul>
-        <hr />
 
         <Suspense fallback={<Loader />}>
           <Outlet />

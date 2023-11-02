@@ -1,7 +1,7 @@
 import NavBar from 'components/NavBar/NavBar';
 import React, { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import { HeaderContainer } from './Layout.styled';
+import { HeaderContainer, MainContainer } from './Layout.styled';
 import Loader from 'components/Loader/Loader';
 
 const Layout = () => {
@@ -11,11 +11,11 @@ const Layout = () => {
         <NavBar />
       </HeaderContainer>
 
-      <main>
+      <MainContainer>
         <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
-      </main>
+      </MainContainer>
     </>
   );
 };

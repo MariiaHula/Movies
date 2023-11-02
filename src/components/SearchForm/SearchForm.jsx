@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Button, Container, Input, StyledForm } from './SearchForm.styled';
 
 const SearchForm = ({ searchName, updateQueryString }) => {
   const [query, setQuery] = useState('');
@@ -17,18 +18,18 @@ const SearchForm = ({ searchName, updateQueryString }) => {
     setQuery('');
   };
   return (
-    <div>
-      <form onSubmit={handleFormSubmit}>
-        <input
+    <Container>
+      <StyledForm onSubmit={handleFormSubmit}>
+        <Input
           type="text"
           name={searchName}
           value={query}
           onChange={handleChangeInput}
           required
         />
-        <button type="submit">Search</button>
-      </form>
-    </div>
+        <Button type="submit">Search</Button>
+      </StyledForm>
+    </Container>
   );
 };
 

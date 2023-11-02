@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { fetchReviews } from '../../servises/AxiosAPI';
 import Loader from 'components/Loader/Loader';
 import { useHttp } from 'hook/useHttp';
+import { Author, Container, Content, List, ListItem } from './Reviews.styled';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -10,21 +11,21 @@ const Reviews = () => {
   const { data: reviews, loading } = useHttp(fetchReviews, movieId);
 
   return (
-    <div>
+    <Container>
       {loading && <Loader />}
-      <ul>
+      <List>
         {reviews.length ? (
           reviews.map(review => (
-            <li key={review.id}>
-              <h2>Author: {review.author}</h2>
-              <p>{review.content}</p>
-            </li>
+            <ListItem key={review.id}>
+              <Author>Author: {review.author}</Author>
+              <Content>{review.content}</Content>
+            </ListItem>
           ))
         ) : (
-          <p>There are no reviews for this movie yet</p>
+          <Content>There are no reviews for this movie yet</Content>
         )}
-      </ul>
-    </div>
+      </List>
+    </Container>
   );
 };
 
