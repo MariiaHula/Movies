@@ -1,13 +1,12 @@
 import Loader from 'components/Loader/Loader';
 import SearchForm from 'components/SearchForm/SearchForm';
 import MoviesList from 'components/MoviesList/MoviesList';
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 import { fetchMovies } from '../../servises/AxiosAPI';
 import { useSearchParams } from 'react-router-dom';
+import { useHttp } from 'hook/useHttp';
 
 const Movies = () => {
-  const [loading, setLoading] = useState(false);
-  const [searchMovies, setSearchMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const searchName = searchParams.get('query') || '';
@@ -17,23 +16,7 @@ const Movies = () => {
     setSearchParams(nextParams);
   };
 
-  useEffect(() => {
-    const getSearchMoviesByQuery = async () => {
-      try {
-        setLoading(true);
-        const { results } = await fetchMovies(searchName);
-
-        if (results.length > 0) {
-          setSearchMovies(results);
-        }
-      } catch (error) {
-        console.log(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    getSearchMoviesByQuery();
-  }, [searchName]);
+  const { data: movies, loading } = useHttp(fetchMovies, searchName);
 
   return (
     <div>
@@ -42,7 +25,7 @@ const Movies = () => {
         updateQueryString={updateQueryString}
       />
       {loading && <Loader />}
-      <MoviesList movies={searchMovies} />
+      <MoviesList movies={movies} />
     </div>
   );
 };

@@ -1,31 +1,13 @@
 import Loader from 'components/Loader/Loader';
-import React, { useEffect, useState } from 'react';
+import { useHttp } from 'hook/useHttp';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchActors } from 'servises/AxiosAPI';
 
 const Cast = () => {
   const { movieId } = useParams();
-  const [castActors, setCastActors] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const getActors = async () => {
-      try {
-        setLoading(true);
-        const { cast } = await fetchActors(movieId);
-        console.log(cast);
-        if (cast.length > 0) {
-          setCastActors(cast);
-        }
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    getActors();
-  }, [error, movieId]);
+  const { data: castActors, loading } = useHttp(fetchActors, movieId);
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from '../../servises/AxiosAPI';
 import Loader from 'components/Loader/Loader';
@@ -14,40 +14,21 @@ import {
   MoviePoster,
   MovieTitle,
 } from './MovieDtails.styled';
+import { useHttp } from 'hook/useHttp';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const location = useLocation();
-
   const goBackRef = useRef(location.state?.from || '/');
 
-  const [movieInfo, setMovieInfo] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const { data: movieInfo, loading } = useHttp(fetchMovieDetails, movieId);
 
-  useEffect(() => {
-    const getMoviesDetails = async () => {
-      try {
-        setLoading(true);
-        const results = await fetchMovieDetails(movieId);
-        console.log(results);
-        if (results) {
-          setMovieInfo(results);
-        }
-      } catch (error) {
-        console.log(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    getMoviesDetails();
-  }, [movieId]);
-
-  if (!movieInfo) {
-    return loading && <Loader />;
+  if (loading) {
+    return <Loader />;
   }
 
   const { title, release_date, popularity, overview, genres, poster_path } =
-    movieInfo || {};
+    movieInfo;
 
   return (
     <MovieDetailsContainer>
@@ -65,14 +46,14 @@ const MovieDetails = () => {
         />
         <MovieInfo1>
           <MovieTitle>
-            {title}: ({release_date.slice(0, 4)})
+            {title}: ({release_date?.slice(0, 4)})
           </MovieTitle>
-          <p>User score: {(popularity / 100).toFixed(0)}%</p>
+          <p>User score: {(popularity / 100)?.toFixed(0)}%</p>
           <h2>Overview</h2>
           <MovieOverview>{overview}</MovieOverview>
           <h2>Genres</h2>
           <GenresList>
-            {genres.map(genre => (
+            {genres?.map(genre => (
               <GenreItem key={genre.id}>{genre.name}</GenreItem>
             ))}
           </GenresList>

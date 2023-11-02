@@ -23,7 +23,7 @@ export const fetchMovies = async query => {
       query: `${query}`,
     },
   });
-  return data;
+  return data.results;
 };
 
 export const fetchMovieDetails = async movieId => {
@@ -43,7 +43,7 @@ export const fetchActors = async movieId => {
       language: 'en-US',
     },
   });
-  return data;
+  return data.cast;
 };
 
 export const fetchReviews = async movieId => {
@@ -54,5 +54,5 @@ export const fetchReviews = async movieId => {
       api_key: `${API_KEY}`,
     },
   });
-  return data;
+  return data.results;
 };

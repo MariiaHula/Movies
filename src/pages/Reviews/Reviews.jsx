@@ -1,31 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchReviews } from '../../servises/AxiosAPI';
 import Loader from 'components/Loader/Loader';
+import { useHttp } from 'hook/useHttp';
 
 const Reviews = () => {
   const { movieId } = useParams();
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const getReviews = async () => {
-      try {
-        setLoading(true);
-        const { results } = await fetchReviews(movieId);
-        console.log(results);
-        if (results.length > 0) {
-          setReviews(results);
-        }
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    getReviews();
-  }, [error, movieId]);
+  const { data: reviews, loading } = useHttp(fetchReviews, movieId);
 
   return (
     <div>

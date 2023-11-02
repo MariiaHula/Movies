@@ -21,5 +21,6 @@ export const useHttp = (fn, param) => {
 
     ownFunction();
   }, [fn, param]);
-  return [data, setData, loading, error];
+
+  return { data, setData, loading, error };
 };
