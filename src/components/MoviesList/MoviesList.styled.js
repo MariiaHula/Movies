@@ -16,8 +16,10 @@ export const MovieItem = styled.div`
   padding: 20px;
   text-align: center;
   width: 250px;
+  font-weight: 700;
 `;
 export const MovieImage = styled.img`
+  margin-bottom: 10px;
   max-width: 100%;
   height: auto;
   border-radius: 8px;
