@@ -15,7 +15,7 @@ const Global = createGlobalStyle`
        }`;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <BrowserRouter basename="/goit-react-hw-05-movies">
+  <BrowserRouter basename="/Movies">
     <Global />
     <App />
     <ToastContainer autoClose={1000} />
